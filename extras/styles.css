@@ -1,0 +1,62 @@
+
+  body{
+      display: flex;
+      height: 100vh;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: black;
+  }
+
+  .message-box {
+    width: 900px;
+    max-width: calc(100% - 20px);
+    margin: 0 auto 10px;
+    height: 1em;
+    font-size: 18px;
+    color: rgb(28, 116, 6);
+    
+  }
+
+  .table {
+    width: 900px;
+    max-width: calc(100% - 20px);
+    background: rgb(28, 116, 6);
+    border-radius: 10px;
+    margin: 0 auto;
+    color: white;
+    padding: 30px;
+  }
+
+  .player {
+    margin: 20px;
+  }
+
+  .player-name {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+
+.hand {
+    height: 120px;
+    border: 2px solid rgb(249, 250, 248);
+    border-radius: 8px;
+  }
+
+.hand img {
+    height: 85%;
+    width: auto;
+    padding: 10px 0 10px 10px;
+}
+  
+.points {
+    font-style: italic;
+  }

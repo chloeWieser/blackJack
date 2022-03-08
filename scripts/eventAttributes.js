@@ -1,19 +1,19 @@
 
 
-function removeAdd(deck, hand, ) {       //--------#4 & #7
+function removeAdd(deck, hand, ) {       //--------#4 & #7  pop/pushes the cards nto new generic dealerHand/playerHand array
     let poppedCard = deck.pop();
     hand.push(poppedCard);
 
     // return poppedCard;
 }
 
-function dealCard(card, parentElement) {             //--------#4 & #7
+function dealCard(card, parentElement) {             //--------#4 & #7   fetches the images and appends them to the parentElement rectangles on the page
     let cardElement = document.createElement("img");
     cardElement.setAttribute("src", card.imgUrl);
     parentElement.appendChild(cardElement);
 }
 
-function render(hand, parentElement) {              //------#9
+function render(hand, parentElement) {              //------#9     actually puts the images on the page, looping through the hand
     parentElement.innerHTML = "";
 
     hand.forEach(function(card) {
@@ -46,9 +46,9 @@ function shuffleArray(array) {            //--------#10(solution provided)
 // or in order to NOT put an event listener on each and every node....
 let classButtons = document.querySelector('.buttons')  // identified the WHOLE BLOCK OF nodes- so all the buttons--------#4
 
-let dealerHandElement = document.querySelector('#dealer-hand'); //-------#4
+let dealerHandElement = document.querySelector('#dealer-hand'); //-------#4    //element to append image to
 
-let playerHandElement = document.querySelector('#player-hand');  //-------#4
+let playerHandElement = document.querySelector('#player-hand');  //-------#4     //element to append image to
 
 
 var playerHand = [];//-----#4
@@ -57,10 +57,10 @@ var dealerHand = [];//-----#4
 classButtons.addEventListener('click', function(e){ // add generic event listener to all of 'em---"e" is an object from the browser telling us what was clicked on, we pass it to the function as an argument, can be anything oesn't have to be 'e'.
 //   console.log(e.target.id); // when you print 'e' you can drilldown in the console to find the 'target' and then the 'id' to find the value of that id and you can ask it to print that upon click
 
-    switch(e.target.id) {
+    switch(e.target.id) {   //identifies which button was targeted
         case 'deal-button':
-//pop a card from the deck array and push it to a new array called 'player-hand' into the div with id "player-hand"
 
+//pop a card from the deck array and push it to a new array called 'player-hand' into the div with id "player-hand"
             // Player Card 1
             // var poppedCard = deck.pop();        --------#4 & #7
             // playerHand.push(poppedCard);

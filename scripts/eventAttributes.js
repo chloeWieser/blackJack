@@ -24,7 +24,7 @@ function render(hand, parentElement, pointsElement) {              //------#9
 
     let points = calculatePoints(hand);  //------#12
 
-    pointsElement.innerText = points; //----------#12
+    pointsElement.innerText = points; 
 
 
 }
@@ -70,13 +70,13 @@ function calculatePoints(hand){           //-------#11
 // or in order to NOT put an event listener on each and every node....
 let classButtons = document.querySelector('.buttons')  // identified the WHOLE BLOCK OF nodes- so all the buttons--------#4
 
-let dealerHandElement = document.querySelector('#dealer-hand');
+let dealerHandElement = document.querySelector('#dealer-hand'); //-------#4
 let dealerPointsElement = document.querySelector('#dealer-points');  //----------#12
-let playerHandElement = document.querySelector('#player-hand');
+let playerHandElement = document.querySelector('#player-hand');  //-------#4
 let playerPointsElement = document.querySelector('#player-points');//----------#12
 
-var playerHand = [];//-----#7
-var dealerHand = [];//-----#7
+var playerHand = [];//-----#4
+var dealerHand = [];//-----#4
 
 classButtons.addEventListener('click', function(e){ // add generic event listener to all of 'em---"e" is an object from the browser telling us what was clicked on, we pass it to the function as an argument, can be anything oesn't have to be 'e'.
 //   console.log(e.target.id); // when you print 'e' you can drilldown in the console to find the 'target' and then the 'id' to find the value of that id and you can ask it to print that upon click
@@ -84,9 +84,6 @@ classButtons.addEventListener('click', function(e){ // add generic event listene
     switch(e.target.id) {
         case 'deal-button':
 //pop a card from the deck array and push it to a new array called 'player-hand' into the div with id "player-hand"
-//pop a card from the deck array  and push it to a new array called 'dealer-hand' into the div with id "dealer-hand"
-//pop a card from the deck array  and push it to a new array called 'player-hand' into the div with id "player-hand"
-//pop a card from the deck array  and push it to a new array called 'dealer-hand' into the div with id "dealer-hand"
 
             // Player Card 1
             // var poppedCard = deck.pop();        --------#4 & #7
@@ -100,6 +97,7 @@ classButtons.addEventListener('click', function(e){ // add generic event listene
             // playerHandElement.appendChild(card);
             // render(poppedCard, playerHandElement);
 
+//pop a card from the deck array  and push it to a new array called 'dealer-hand' into the div with id "dealer-hand"
             // Dealer Card 1
             // var poppedCard2 = deck.pop();
             // dealerHand.push(poppedCard2);
@@ -111,6 +109,7 @@ classButtons.addEventListener('click', function(e){ // add generic event listene
             // dealerHandElement.appendChild(card2);
             // render(poppedCard2, dealerHandElement)
 
+//pop a card from the deck array  and push it to a new array called 'player-hand' into the div with id "player-hand"
             // Player Card 2
             // var poppedCard3 = deck.pop();
             // playerHand.push(poppedCard3);
@@ -122,6 +121,7 @@ classButtons.addEventListener('click', function(e){ // add generic event listene
             // playerHandElement.appendChild(card3);
             // render(poppedCard3, playerHandElement);
 
+//pop a card from the deck array  and push it to a new array called 'dealer-hand' into the div with id "dealer-hand"
             // Dealer Card 2
             // var poppedCard4 = deck.pop();
             // dealerHand.push(poppedCard4);
@@ -165,7 +165,7 @@ classButtons.addEventListener('click', function(e){ // add generic event listene
 
             break;
 
-        case 'stand-button':   //-----------#14
+        case 'stand-button':   
     }
 
     

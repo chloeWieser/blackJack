@@ -6,7 +6,7 @@ function removeAdd(deck, hand, ) {       //--------#4 & #7
     let poppedCard = deck.pop();
     hand.push(poppedCard);
 
-    return poppedCard;
+    // return poppedCard;
 }
 
 function dealCard(card, parentElement) {             //--------#4 & #7
@@ -141,8 +141,8 @@ classButtons.addEventListener('click', function(e){ // add generic event listene
             // console.log(playerHand);
             // console.log(dealerHand);
 
-            render(playerHand, playerHandElement, playerPointsElement, "Player");
-            render(dealerHand, dealerHandElement, dealerPointsElement, "Dealer");
+            render(playerHand, playerHandElement, playerPointsElement);
+            render(dealerHand, dealerHandElement, dealerPointsElement);
 
             break;
 
@@ -160,8 +160,8 @@ classButtons.addEventListener('click', function(e){ // add generic event listene
             // playerHandElement.appendChild(card);
             // render(hitCardPlayer, playerHandElement);
 
-            render(playerHand, playerHandElement, playerPointsElement,"Player");
-            render(dealerHand, dealerHandElement, dealerPointsElement, "Dealer");
+            render(playerHand, playerHandElement, playerPointsElement);
+            render(dealerHand, dealerHandElement, dealerPointsElement);
 
             break;
 

@@ -1,6 +1,4 @@
-// let deal = document.getElementById('deal-button');
-// or
-// let deal = document.querySelector('#deal-button')   // identified the node
+
 
 function removeAdd(deck, hand, ) {       //--------#4 & #7
     let poppedCard = deck.pop();
@@ -15,16 +13,13 @@ function dealCard(card, parentElement) {             //--------#4 & #7
     parentElement.appendChild(cardElement);
 }
 
-function render(hand, parentElement, pointsElement) {              //------#9
+function render(hand, parentElement) {              //------#9
     parentElement.innerHTML = "";
 
     hand.forEach(function(card) {
         dealCard(card, parentElement);
     });
 
-    let points = calculatePoints(hand);  //------#12
-
-    pointsElement.innerText = points; 
 
 
 }
@@ -39,41 +34,22 @@ function shuffleArray(array) {            //--------#10(solution provided)
     return array;
 }
 
-function calculatePoints(hand){           //-------#11
-    let points = 0;
 
-    hand.forEach(function(card) {
-        switch(card.rank) {
-            case(11):
-                points += 10;
-                break;
-            case(12):
-                points += 10;
-                break;
-            case(13):
-                points += 10;
-                break;
-            case(1):
-                points += 11;
-                break;
-            default:
-                points += card.rank;
-                break;
-        }
-    })
 
-    return points;
-} 
 
+
+// let deal = document.getElementById('deal-button');
+// or
+// let deal = document.querySelector('#deal-button')   // identified the node
 // deal.onclick = function(){ // identified event 
 //   }
 // or in order to NOT put an event listener on each and every node....
 let classButtons = document.querySelector('.buttons')  // identified the WHOLE BLOCK OF nodes- so all the buttons--------#4
 
 let dealerHandElement = document.querySelector('#dealer-hand'); //-------#4
-let dealerPointsElement = document.querySelector('#dealer-points');  //----------#12
+
 let playerHandElement = document.querySelector('#player-hand');  //-------#4
-let playerPointsElement = document.querySelector('#player-points');//----------#12
+
 
 var playerHand = [];//-----#4
 var dealerHand = [];//-----#4
@@ -141,8 +117,8 @@ classButtons.addEventListener('click', function(e){ // add generic event listene
             // console.log(playerHand);
             // console.log(dealerHand);
 
-            render(playerHand, playerHandElement, playerPointsElement);
-            render(dealerHand, dealerHandElement, dealerPointsElement);
+            render(playerHand, playerHandElement);
+            render(dealerHand, dealerHandElement);
 
             break;
 
@@ -160,8 +136,8 @@ classButtons.addEventListener('click', function(e){ // add generic event listene
             // playerHandElement.appendChild(card);
             // render(hitCardPlayer, playerHandElement);
 
-            render(playerHand, playerHandElement, playerPointsElement);
-            render(dealerHand, dealerHandElement, dealerPointsElement);
+            render(playerHand, playerHandElement);
+            render(dealerHand, dealerHandElement);
 
             break;
 

@@ -38,10 +38,13 @@ function shuffleArray(array) {            //--------#10(solution provided)
 function calculatePoints(hand) {            //--------#11
     let points = 0;
 
+    let hasAce = false;
+
     hand.forEach(function (card) {
         switch (card.rank) {
             case (1):
                 points += 1;    //do we cover anything for if it is decided ace is high?
+                hasAce = true;
                 break;
             case (11):
                 points += 10;          //jack
@@ -59,16 +62,17 @@ function calculatePoints(hand) {            //--------#11
     })
 
 
-    let hasAce = false;
+// }
 
-    hand.forEach(card => {    //before the points are finally totalled, loop through the have to see if there's an ace
-        if (card.rank == 1){
-            hasAce = true;
-        }
-        points += card.rank;  //add one for the ace
-    })
 
-    if(hasAce == true && points + 10 <= 21){    //if there's an ace AND points + 10 <= 21, then add 10 so ace is worth 11 (10 since we already added one and aces can be 11pts)
+    // hand.forEach(card => {    //before the points are finally totalled, loop through the have to see if there's an ace
+    //     if (card.rank === 1){
+    //         hasAce = true;
+    //         points += 1;  //add one for the ace
+    //     }
+    // })
+
+    if(hasAce === true && points + 10 <= 21){    //if there's an ace AND points + 10 <= 21, then add 10 so ace is worth 11 (10 since we already added one and aces can be 11pts)
         points = points + 10
     }
 

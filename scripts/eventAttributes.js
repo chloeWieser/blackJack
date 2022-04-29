@@ -1,28 +1,34 @@
+// let deal = document.getElementById('deal-button');
+// or
+// let deal = document.querySelector('#deal-button')   // identified the node
 
-
-function removeAdd(deck, hand,) {       //--------#4 & #7  pop/pushes the cards nto new generic dealerHand/playerHand array
+function removeAdd(deck, hand, ) {       //--------#4 & #7
     let poppedCard = deck.pop();
     hand.push(poppedCard);
 
-    // return poppedCard;
+    return poppedCard;
 }
 
-function dealCard(card, parentElement) {             //--------#4 & #7   fetches the images and appends them to the parentElement rectangles on the page
+function dealCard(card, parentElement) {             //--------#4 & #7
     let cardElement = document.createElement("img");
     cardElement.setAttribute("src", card.imgUrl);
     parentElement.appendChild(cardElement);
 }
 
-function render(hand, parentElement, pointsElement) {              //------#9     actually puts the images on the page, looping through the hand
+function render(hand, parentElement, pointsElement, messagesElement, playerName) {              //------#9
     parentElement.innerHTML = "";
 
-    hand.forEach(function (card) {
+    hand.forEach(function(card) {
         dealCard(card, parentElement);
     });
 
-    let points = calculatePoints(hand);  //------#12   added pointsElement as the generic parameter above to take in the dealerPointsELement and PlayerPointsELement arguments (when included in calling the render function)
+    let points = calculatePoints(hand);  //------#12
+
     pointsElement.innerText = points; //----------#12
 
+    if (points > 21) {
+        messagesElement.innerText = `${playerName} has bust!`; //------#13
+    }
 }
 
 function shuffleArray(array) {            //--------#10(solution provided)
@@ -35,25 +41,22 @@ function shuffleArray(array) {            //--------#10(solution provided)
     return array;
 }
 
-function calculatePoints(hand) {            //--------#11
+function calculatePoints(hand){           //-------#11
     let points = 0;
 
-    let hasAce = false;
-
-    hand.forEach(function (card) {
-        switch (card.rank) {
-            case (1):
-                points += 1;    //do we cover anything for if it is decided ace is high?
-                hasAce = true;
+    hand.forEach(function(card) {
+        switch(card.rank) {
+            case(11):
+                points += 10;
                 break;
-            case (11):
-                points += 10;          //jack
+            case(12):
+                points += 10;
                 break;
-            case (12):
-                points += 10;          //queen
+            case(13):
+                points += 10;
                 break;
-            case (13):
-                points += 10;          //king
+            case(1):
+                points += 11;
                 break;
             default:
                 points += card.rank;
@@ -61,49 +64,53 @@ function calculatePoints(hand) {            //--------#11
         }
     })
 
-
-// }
-
-
-    // hand.forEach(card => {    //before the points are finally totalled, loop through the have to see if there's an ace
-    //     if (card.rank === 1){
-    //         hasAce = true;
-    //         points += 1;  //add one for the ace
-    //     }
-    // })
-
-    if(hasAce === true && points + 10 <= 21){    //if there's an ace AND points + 10 <= 21, then add 10 so ace is worth 11 (10 since we already added one and aces can be 11pts)
-        points = points + 10
-    }
-
     return points;
+} 
+
+function determineWinner(playerPoints, dealerPoints, messagesElement) {
+    if (dealerPoints > 21 || playerPoints > dealerPoints) {  //----------#15
+        messagesElement.innerText = "Player has won!";
+    } else if (playerPoints === dealerPoints) {
+        messagesElement.innerText = "Pushed hand.";
+    } else {
+        messagesElement.innerText = "Dealer has won.";
+    }
 }
 
+function disablePlayButtons(buttonsElements) {
+    buttonsElements.forEach(function(button) {
+        if(button.id === 'reset-button'){
+            return
+        }
+        button.disabled = true;
+    })
+}
 
-
-// let deal = document.getElementById('deal-button');
-// or
-// let deal = document.querySelector('#deal-button')   // identified the node
 // deal.onclick = function(){ // identified event 
 //   }
 // or in order to NOT put an event listener on each and every node....
-let classButtons = document.querySelector('.buttons')  // identified the WHOLE BLOCK OF nodes- so all the buttons--------#4
+let classButtons = document.querySelector('.buttons')  // identified the whole block of nodes- so all the buttons--------#4
+let buttonsElements = document.querySelectorAll('button');  //-------------#15
+let dealerHandElement = document.querySelector('#dealer-hand');
+let dealButton = document.querySelector('#deal-button');
+let dealerPointsElement = document.querySelector('#dealer-points');  //----------#12
+let playerHandElement = document.querySelector('#player-hand');
+let playerPointsElement = document.querySelector('#player-points');//----------#12
+let messagesElement = document.querySelector('#messages'); //----------#13
+var playerHand = [];//-----#7
+var dealerHand = [];//-----#7
+var deck = [...fullDeck];
 
-let dealerHandElement = document.querySelector('#dealer-hand'); //-------#4    //element to append image to
-let dealerPointsElement = document.querySelector('#dealer-points');  //-------#12     //element to append points counter to
-let playerHandElement = document.querySelector('#player-hand');  //-------#4     //element to append image to
-let playerPointsElement = document.querySelector('#player-points');  //-------#12     //element to append points counter to
+classButtons.addEventListener('click', function(e){ // add generic event listener to all of 'em---"e" is an object from the browser telling us what was clicked on, we pass it to the function as an argument, can be anything oesn't have to be 'e'.
+//   console.log(e.target.id); // when you print 'e' you can drilldown in the console to find the 'target' and then the 'id' to find the value of that id and you can ask it to print that upon click
 
-var playerHand = [];//-----#4
-var dealerHand = [];//-----#4
-
-classButtons.addEventListener('click', function (e) { // add generic event listener to all of 'em---"e" is an object from the browser telling us what was clicked on, we pass it to the function as an argument, can be anything oesn't have to be 'e'.
-    //   console.log(e.target.id); // when you print 'e' you can drilldown in the console to find the 'target' and then the 'id' to find the value of that id and you can ask it to print that upon click
-
-    switch (e.target.id) {   //identifies which button was targeted
+    switch(e.target.id) {
         case 'deal-button':
+//pop a card from the deck array and push it to a new array called 'player-hand' into the div with id "player-hand"
+//pop a card from the deck array  and push it to a new array called 'dealer-hand' into the div with id "dealer-hand"
+//pop a card from the deck array  and push it to a new array called 'player-hand' into the div with id "player-hand"
+//pop a card from the deck array  and push it to a new array called 'dealer-hand' into the div with id "dealer-hand"
 
-            //pop a card from the deck array and push it to a new array called 'player-hand' into the div with id "player-hand"
             // Player Card 1
             // var poppedCard = deck.pop();        --------#4 & #7
             // playerHand.push(poppedCard);
@@ -116,7 +123,6 @@ classButtons.addEventListener('click', function (e) { // add generic event liste
             // playerHandElement.appendChild(card);
             // render(poppedCard, playerHandElement);
 
-            //pop a card from the deck array  and push it to a new array called 'dealer-hand' into the div with id "dealer-hand"
             // Dealer Card 1
             // var poppedCard2 = deck.pop();
             // dealerHand.push(poppedCard2);
@@ -128,7 +134,6 @@ classButtons.addEventListener('click', function (e) { // add generic event liste
             // dealerHandElement.appendChild(card2);
             // render(poppedCard2, dealerHandElement)
 
-            //pop a card from the deck array  and push it to a new array called 'player-hand' into the div with id "player-hand"
             // Player Card 2
             // var poppedCard3 = deck.pop();
             // playerHand.push(poppedCard3);
@@ -140,7 +145,6 @@ classButtons.addEventListener('click', function (e) { // add generic event liste
             // playerHandElement.appendChild(card3);
             // render(poppedCard3, playerHandElement);
 
-            //pop a card from the deck array  and push it to a new array called 'dealer-hand' into the div with id "dealer-hand"
             // Dealer Card 2
             // var poppedCard4 = deck.pop();
             // dealerHand.push(poppedCard4);
@@ -152,26 +156,24 @@ classButtons.addEventListener('click', function (e) { // add generic event liste
             // dealerHandElement.appendChild(card4);
             // render(poppedCard4, dealerHandElement);
 
+            // console.log(playerHand);
+            // console.log(dealerHand);
 
 
 
-            console.log(playerHand);
-            console.log(dealerHand);
+            // console.log(playerHand);
+            // console.log(dealerHand);
 
-            var playerPoints = calculatePoints(playerHand)
-            console.log(playerPoints);
-            var dealerPoints = calculatePoints(dealerHand)
-            console.log(dealerPoints);
+            render(playerHand, playerHandElement, playerPointsElement, messagesElement, "Player");
+            render(dealerHand, dealerHandElement, dealerPointsElement, messagesElement, "Dealer");
 
+            dealButton.disabled = true
 
-
-            render(playerHand, playerHandElement, playerPointsElement);
-            render(dealerHand, dealerHandElement, dealerPointsElement);
             break;
 
         case 'hit-button':
             //pop a card from the deck array and push it to a new array called 'player-hand' into the div with id "player-hand"
-
+            
             // Player Hit Card 1
             // var poppedCard5 = deck.pop();
             // playerHand.push(poppedCard5);
@@ -183,16 +185,50 @@ classButtons.addEventListener('click', function (e) { // add generic event liste
             // playerHandElement.appendChild(card);
             // render(hitCardPlayer, playerHandElement);
 
-            render(playerHand, playerHandElement,playerPointsElement);
-            render(dealerHand, dealerHandElement,dealerPointsElement);
+            render(playerHand, playerHandElement, playerPointsElement, messagesElement, "Player");
+            render(dealerHand, dealerHandElement, dealerPointsElement, messagesElement, "Dealer");
+
+            if(calculatePoints(playerHand) > 21) {
+                messagesElement.innerText = 'Player has bust!';
+
+                disablePlayButtons(buttonsElements);
+            }
 
             break;
 
-        case 'stand-button':
+        case 'stand-button':   //-----------#14
+            let dealerPoints = calculatePoints(dealerHand);
+
+            while(dealerPoints < 17) {
+                removeAdd(deck, dealerHand)
+                render(dealerHand, dealerHandElement, dealerPointsElement, messagesElement, "Dealer");
+
+                dealerPoints = calculatePoints(dealerHand);
+            }
+
+            let playerPoints = calculatePoints(playerHand);
+
+            determineWinner(playerPoints, dealerPoints, messagesElement) 
+
+            disablePlayButtons(buttonsElements);
+
+            break;
+
+        case 'reset-button':
+            playerHand = []
+            dealerHand = []
+            deck = [...fullDeck];
+            messagesElement.innerText = '';
+            render(playerHand, playerHandElement, playerPointsElement, messagesElement, "Player");
+            render(dealerHand, dealerHandElement, dealerPointsElement, messagesElement, "Dealer");
+
+            buttonsElements.forEach(function(button) {
+                button.disabled = false;
+            })
+
+
     }
 
-
+    
 
 })
-
-

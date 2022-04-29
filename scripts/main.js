@@ -1,4 +1,4 @@
-const deck = [
+const fullDeck = [
     {
         rank: 1,
         suit: "diamonds",
@@ -264,7 +264,3 @@ const deck = [
         imgUrl: "images/king_of_spades.png"
     },
 ]
-
-console.log(deck)
-
-
